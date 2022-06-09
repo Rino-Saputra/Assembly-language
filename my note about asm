@@ -1,0 +1,70 @@
+#()#->my hypotesis
+
+
+book nasm->p79
+TUTORIAL VIDEO DRYAN BRIWAL
+    -prin hello world
+    -eip location instruction cant change value just can change by jmp instruction
+    -stack opration variable is pointer [variable] is value that store in variable pointer
+        stack is lifo
+        an array
+        random acess
+        push and pop operation,
+    -call see call poin additional:
+        because call is perform push adress to stack,how to operation stack in procedure call?
+        it can move first esp to ebp, then after done operation in procedure back esp to ebp(mov esp,ebp)
+        nb: if not use awkward technique like in CALL point bellow use ret to return after call line
+    -when call label it push return adress to stack then in this stack all value or execution exist after all done ebp must be 
+        release and esp back point to ebp before ebp relase(pop ebp)
+        -when use standard function from c the global must be main and the linker not use ld but use gcc as linker
+    -eax as return value from prcedure in asm
+
+    
+
+-syscall in linux is 0x80 when sycall is execute it check each data register,
+    eax->number of syscall
+    ebx->1st parameter
+    ecx->2nd parameter
+    edx->3rd parameter
+    see /usr/include/x86_64-linux-gnu/asm/unistd_32.h,after get it number see man 2 (syscal) ex: man 2 exit
+
+-asm cant print number value ->it must convert to ascii first then print in terminal #(terminal just receive ascii number,this
+    also use in high level language to print number)#
+-CALL   
+    ->push eip to stack and jump to label:
+    ->after that pop the adress excution mov to eax now eax is store the adress execution
+    ->after that jmp to eax,that eax store the adress execution.
+    ilustration:
+        call jmp=0x...d
+                    
+                    STACK
+        1.stack +-----------+      
+                |           |   push 0x...d to stack
+                +-----------+
+                |           |
+                +-----------+
+                |0x.....d   |
+                +-----------+
+        
+                       STACK
+        2.pop eax +-----------+      
+                  |           |   pop 0x...d to eax (pop adress excution to eax)
+                  +-----------+
+                  |           |
+                  +-----------+        EAX 
+                  |.........  |->   +--------+
+                  +-----------+     |0x.....d|
+                                    +--------+
+
+                      STACK
+        2.jmp eax +-----------+      
+                  |           |     now EIP point to 0x.....d to execution that adress
+                  +-----------+
+                  |           |
+                  +-----------+        EAX 
+                  |.........  |->   +--------+
+                  +-----------+     |0x.....d| <-EIP
+                                    +--------+
+
+
+    
