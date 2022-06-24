@@ -1,5 +1,6 @@
 ;https://stackoverflow.com/questions/17206683/nasm-interrupt-calls-getting-skipped-and-outputting-multiple-lines
 ;https://stackoverflow.com/questions/22651039/input-incorrect-assembly-x86-nasm
+;https://stackoverflow.com/questions/18780927/how-do-i-ignore-line-breaks-in-input-using-nasm-assembly
 section .data
 	;data here
 	ClearTerm: db   27,"[H",27,"[2J"    ; <ESC> [H <ESC> [2J
@@ -111,6 +112,6 @@ valid:
 end:
 	;sys_exit kernel
 	mov eax,1
-	mov ebx,[esp]
+	mov ebx,0
 	int 0x80
 
