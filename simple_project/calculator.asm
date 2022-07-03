@@ -61,7 +61,6 @@ _start:
 	mov edx,1
 	int 0x80
 
-
 	;validation for input
 	cmp byte[operator],0x61	; char a
 	jne next1_operator
@@ -90,7 +89,6 @@ invalid_operator:
 	jmp end
 
 valid:
-
 	call clear_buffer
 
 	mov eax,4				;sys_write
@@ -169,16 +167,13 @@ get_num2:
 	inc edi
 	jmp get_num2
 
-
 ;make sum is it add,mul,div,or sub between two operand
 make_sum:
 	cmp byte[operator],0x61	; char a
 	jne _sub
-
 _add:
 	call add_number
 	jmp _result
-
 _sub:
 	cmp byte[operator],0x73 ;char s
 	jne _mul
@@ -191,7 +186,6 @@ _mul:
 	jmp _result
 _div:
 	call div_number
-
 _result:
 	mov eax,4				;sys_write
 	mov ebx,1				;file descriptor std_out
@@ -199,7 +193,6 @@ _result:
 	mov edx,len_result
 	int 0x80
 
-	
 	mov ebx,0
 	mov eax,[int_sum]	;for result
 	mov ecx,10			;for divisor
@@ -211,7 +204,6 @@ get_digit:
 	;dx for remain
 	
 	mov edx,0			;for remind
-
 	div ecx
 
 	add dl,byte '0'
@@ -219,7 +211,6 @@ get_digit:
 	inc ebx
 
 	mov [int_sum],eax
-
 	cmp eax,10
 	jg get_digit
 
@@ -227,7 +218,6 @@ get_digit:
 	mov [temp_str_num+ebx],al
 
 	mov [counter],bl
-
 
 ;print reverse
 ; 	; dec byte[counter]
@@ -252,13 +242,11 @@ _print:
 	cmp cl,0
 	jge _print
 
-
 end:
 	;sys_exit kernel
 	mov eax,1
 	mov ebx,0
 	int 0x80
-
 
 clear_buffer:
 	mov eax,3				;sys_read
